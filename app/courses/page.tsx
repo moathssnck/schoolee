@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { CheckCircle2 } from "lucide-react"
-import { redirect } from "next/dist/server/api-utils"
 
 export default function DrivingFeesPage() {
   const [formData, setFormData] = useState({
@@ -94,6 +93,9 @@ export default function DrivingFeesPage() {
                 تجديد الرخصة الحالية
               </Button>
             </div>
+            <div className="mt-3 md:mt-4 text-xs md:text-sm text-gray-500">
+              <p>أو اتصل بنا على: 920000000</p>
+            </div>
           </div>
         </div>
       </div>
@@ -107,91 +109,134 @@ export default function DrivingFeesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto -mx-4 md:mx-0">
-              <div className="min-w-full inline-block align-middle">
-                <div className="overflow-hidden">
-                  <table className="min-w-full border-collapse border border-gray-300">
-                    <thead>
-                      <tr className="bg-green-600 text-white">
-                        <th className="border border-gray-300 p-2 md:p-3 text-center text-xs md:text-sm">م</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">النوع</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم الرخصة السنوي</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم التجديد السنوي</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم البالغ والمفقود</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم نقل الملكية</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">1</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير خاصة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">150 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">2</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير نقل خاص</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">150 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">3</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير حافلة صغيرة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">150 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">4</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير سيارة أجرة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">5</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير نقل عام</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">400 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">400 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">6</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير حافلة عامة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">400 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">400 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">7</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة سير دراجة آلية</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">150 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">8</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">
-                          رخصة سير مركبة أشغال عامة
-                        </td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">300 ريال</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="min-w-full border-collapse border border-gray-300">
+                <thead>
+                  <tr className="bg-green-600 text-white">
+                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
+                    <th className="border border-gray-300 p-3 text-sm">النوع</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم الرخصة السنوي</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم البالغ والمفقود</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم نقل الملكية</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير خاصة</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير نقل خاص</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير حافلة صغيرة</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">4</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير سيارة أجرة</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">5</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير نقل عام</td>
+                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">6</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير حافلة عامة</td>
+                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">7</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير دراجة آلية</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">8</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة سير مركبة أشغال عامة</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {[
+                { id: 1, type: "رخصة سير خاصة", annual: "100", renewal: "100", lost: "100", transfer: "150" },
+                { id: 2, type: "رخصة سير نقل خاص", annual: "200", renewal: "200", lost: "100", transfer: "150" },
+                { id: 3, type: "رخصة سير حافلة صغيرة", annual: "200", renewal: "200", lost: "100", transfer: "150" },
+                { id: 4, type: "رخصة سير سيارة أجرة", annual: "200", renewal: "200", lost: "100", transfer: "300" },
+                { id: 5, type: "رخصة سير نقل عام", annual: "400", renewal: "400", lost: "100", transfer: "300" },
+                { id: 6, type: "رخصة سير حافلة عامة", annual: "400", renewal: "400", lost: "100", transfer: "300" },
+                { id: 7, type: "رخصة سير دراجة آلية", annual: "100", renewal: "100", lost: "100", transfer: "150" },
+                {
+                  id: 8,
+                  type: "رخصة سير مركبة أشغال عامة",
+                  annual: "300",
+                  renewal: "300",
+                  lost: "100",
+                  transfer: "300",
+                },
+              ].map((item, index) => (
+                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
+                    <Badge variant="outline" className="text-xs">
+                      {item.id}
+                    </Badge>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم الرخصة السنوي:</span>
+                      <span className="font-medium text-green-600">{item.annual} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم التجديد السنوي:</span>
+                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم البالغ والمفقود:</span>
+                      <span className="font-medium text-blue-600">{item.lost} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم نقل الملكية:</span>
+                      <span className="font-medium text-blue-600">{item.transfer} ريال</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -202,61 +247,90 @@ export default function DrivingFeesPage() {
             <CardTitle className="text-lg md:text-xl font-bold text-center">جدول رسوم رخص القيادة بأنواعها</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto -mx-4 md:mx-0">
-              <div className="min-w-full inline-block align-middle">
-                <div className="overflow-hidden">
-                  <table className="min-w-full border-collapse border border-gray-300">
-                    <thead>
-                      <tr className="bg-green-600 text-white">
-                        <th className="border border-gray-300 p-2 md:p-3 text-center text-xs md:text-sm">م</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">فئة الرخصة</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسوم الرخصة السنوي</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم التجديد السنوي</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم البالغ والمفقود</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">1</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة قيادة خاصة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">40 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">40 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">2</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة قيادة عامة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">40 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">40 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">3</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">
-                          رخصة قيادة مركبات أشغال عامة
-                        </td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">4</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رخصة قيادة دراجة آلية</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">20 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">20 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">5</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">تصريح قيادة مؤقت</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">--</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">100 ريال</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="min-w-full border-collapse border border-gray-300">
+                <thead>
+                  <tr className="bg-green-600 text-white">
+                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
+                    <th className="border border-gray-300 p-3 text-sm">فئة الرخصة</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسوم الرخصة السنوي</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم البالغ والمفقود</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة خاصة</td>
+                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة عامة</td>
+                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة مركبات أشغال عامة</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">4</td>
+                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة دراجة آلية</td>
+                    <td className="border border-gray-300 p-3 text-sm">20 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">20 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">5</td>
+                    <td className="border border-gray-300 p-3 text-sm">تصريح قيادة مؤقت</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">--</td>
+                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {[
+                { id: 1, type: "رخصة قيادة خاصة", annual: "40", renewal: "40", lost: "100" },
+                { id: 2, type: "رخصة قيادة عامة", annual: "40", renewal: "40", lost: "100" },
+                { id: 3, type: "رخصة قيادة مركبات أشغال عامة", annual: "100", renewal: "100", lost: "100" },
+                { id: 4, type: "رخصة قيادة دراجة آلية", annual: "20", renewal: "20", lost: "100" },
+                { id: 5, type: "تصريح قيادة مؤقت", annual: "100", renewal: "--", lost: "100" },
+              ].map((item, index) => (
+                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
+                    <Badge variant="outline" className="text-xs">
+                      {item.id}
+                    </Badge>
+                  </div>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسوم الرخصة السنوي:</span>
+                      <span className="font-medium text-green-600">{item.annual} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم التجديد السنوي:</span>
+                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم البالغ والمفقود:</span>
+                      <span className="font-medium text-blue-600">{item.lost} ريال</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -269,41 +343,66 @@ export default function DrivingFeesPage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="overflow-x-auto -mx-4 md:mx-0">
-              <div className="min-w-full inline-block align-middle">
-                <div className="overflow-hidden">
-                  <table className="min-w-full border-collapse border border-gray-300">
-                    <thead>
-                      <tr className="bg-green-600 text-white">
-                        <th className="border border-gray-300 p-2 md:p-3 text-center text-xs md:text-sm">م</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">النوع</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسوم الرخصة السنوي</th>
-                        <th className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">رسم التجديد السنوي</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">1</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">لوحة عادية</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">50 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">50 ريال</td>
-                      </tr>
-                      <tr>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">2</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">لوحة مميزة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">200 ريال</td>
-                      </tr>
-                      <tr className="bg-gray-100">
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm text-center">3</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">لوحة خاصة</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">500 ريال</td>
-                        <td className="border border-gray-300 p-2 md:p-3 text-xs md:text-sm">500 ريال</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            {/* Desktop Table View */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="min-w-full border-collapse border border-gray-300">
+                <thead>
+                  <tr className="bg-green-600 text-white">
+                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
+                    <th className="border border-gray-300 p-3 text-sm">النوع</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسوم الرخصة السنوي</th>
+                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
+                    <td className="border border-gray-300 p-3 text-sm">لوحة عادية</td>
+                    <td className="border border-gray-300 p-3 text-sm">50 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">50 ريال</td>
+                  </tr>
+                  <tr>
+                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
+                    <td className="border border-gray-300 p-3 text-sm">لوحة مميزة</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
+                  </tr>
+                  <tr className="bg-gray-100">
+                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
+                    <td className="border border-gray-300 p-3 text-sm">لوحة خاصة</td>
+                    <td className="border border-gray-300 p-3 text-sm">500 ريال</td>
+                    <td className="border border-gray-300 p-3 text-sm">500 ريال</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card View */}
+            <div className="md:hidden space-y-4">
+              {[
+                { id: 1, type: "لوحة عادية", annual: "50", renewal: "50" },
+                { id: 2, type: "لوحة مميزة", annual: "200", renewal: "200" },
+                { id: 3, type: "لوحة خاصة", annual: "500", renewal: "500" },
+              ].map((item, index) => (
+                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
+                    <Badge variant="outline" className="text-xs">
+                      {item.id}
+                    </Badge>
+                  </div>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسوم الرخصة السنوي:</span>
+                      <span className="font-medium text-green-600">{item.annual} ريال</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">رسم التجديد السنوي:</span>
+                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </CardContent>
         </Card>
@@ -375,16 +474,11 @@ export default function DrivingFeesPage() {
           </div>
         </div>
 
-      
-        <Button className="w-full bg-green-800" onClick={()=>window.location.href="/payment"}>
-دفع الرسوم
-</Button>
         {/* Footer Note */}
         <div className="text-center text-gray-600 text-sm">
           <p>* الرسوم المذكورة أعلاه قابلة للتغيير حسب اللوائح الحكومية</p>
           <p>* يرجى مراجعة الجهات المختصة للحصول على أحدث المعلومات</p>
         </div>
-       
       </div>
     </div>
   )

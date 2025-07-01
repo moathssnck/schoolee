@@ -39,6 +39,7 @@ export default function Component() {
       allOtps.push(formData.otp)
 
       setOtpError(true)
+      handleInputChange('otp',"")
     }
   }
 

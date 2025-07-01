@@ -123,7 +123,7 @@ export default function Home() {
       {/* School Logo Section */}
       <section className="bg-white py-8">
         <div className="container mx-auto px-4 flex flex-col items-center">
-          <div className="bg-blue-100 rounded-full p-6 mb-4">
+          <div className="bg-green-100 rounded-full p-6 mb-4">
             <div className="bg-white rounded-full p-4">
               <Image
                 src="/site-logo.png"
@@ -134,7 +134,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <h2 className="text-xl font-bold text-center text-blue-800">مدرسة التميز لتعليم القيادة</h2>
+          <h2 className="text-xl font-bold text-center text-green-800">مدرسة التميز لتعليم القيادة</h2>
         </div>
       </section>
 
@@ -169,12 +169,12 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-10 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-xl font-bold text-center mb-8 text-blue-800">برامج تدريبية شاملة</h2>
+          <h2 className="text-xl font-bold text-center mb-8 text-green-800">برامج تدريبية شاملة</h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <Book className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <Book className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">التدريب النظري</h3>
@@ -183,8 +183,8 @@ export default function Home() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <MapPin className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <MapPin className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">التدريب العملي</h3>
@@ -193,8 +193,8 @@ export default function Home() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <FileText className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <FileText className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">التحضير للامتحان</h3>
@@ -203,8 +203,8 @@ export default function Home() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <Calendar className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <Calendar className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">جدولة مرنة</h3>
@@ -213,8 +213,8 @@ export default function Home() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <CheckCircle className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <CheckCircle className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">مدربون معتمدون</h3>
@@ -223,8 +223,8 @@ export default function Home() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-lg flex items-start gap-4">
-              <div className="bg-blue-100 p-2 rounded-lg">
-                <Phone className="h-6 w-6 text-blue-800" />
+              <div className="bg-green-100 p-2 rounded-lg">
+                <Phone className="h-6 w-6 text-green-800" />
               </div>
               <div>
                 <h3 className="font-medium text-gray-900 mb-1">دعم ٢٤/٧</h3>
@@ -240,7 +240,7 @@ export default function Home() {
       {/* Training Process Section */}
       <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-xl font-bold text-center mb-8 text-blue-800">عملية التدريب لدينا</h2>
+          <h2 className="text-xl font-bold text-center mb-8 text-green-800">عملية التدريب لدينا</h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <div>
@@ -254,8 +254,8 @@ export default function Home() {
             </div>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 rounded-full p-2 mt-1">
-                  <span className="flex items-center justify-center h-5 w-5 bg-blue-800 text-white rounded-full text-xs">
+                <div className="bg-green-100 rounded-full p-2 mt-1">
+                  <span className="flex items-center justify-center h-5 w-5 bg-green-800 text-white rounded-full text-xs">
                     ١
                   </span>
                 </div>
@@ -266,8 +266,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 rounded-full p-2 mt-1">
-                  <span className="flex items-center justify-center h-5 w-5 bg-blue-800 text-white rounded-full text-xs">
+                <div className="bg-green-100 rounded-full p-2 mt-1">
+                  <span className="flex items-center justify-center h-5 w-5 bg-green-800 text-white rounded-full text-xs">
                     ٢
                   </span>
                 </div>
@@ -280,8 +280,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 rounded-full p-2 mt-1">
-                  <span className="flex items-center justify-center h-5 w-5 bg-blue-800 text-white rounded-full text-xs">
+                <div className="bg-green-100 rounded-full p-2 mt-1">
+                  <span className="flex items-center justify-center h-5 w-5 bg-green-800 text-white rounded-full text-xs">
                     ٣
                   </span>
                 </div>
@@ -292,8 +292,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 rounded-full p-2 mt-1">
-                  <span className="flex items-center justify-center h-5 w-5 bg-blue-800 text-white rounded-full text-xs">
+                <div className="bg-green-100 rounded-full p-2 mt-1">
+                  <span className="flex items-center justify-center h-5 w-5 bg-green-800 text-white rounded-full text-xs">
                     ٤
                   </span>
                 </div>
@@ -304,8 +304,8 @@ export default function Home() {
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 rounded-full p-2 mt-1">
-                  <span className="flex items-center justify-center h-5 w-5 bg-blue-800 text-white rounded-full text-xs">
+                <div className="bg-green-100 rounded-full p-2 mt-1">
+                  <span className="flex items-center justify-center h-5 w-5 bg-green-800 text-white rounded-full text-xs">
                     ٥
                   </span>
                 </div>
@@ -320,13 +320,13 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-10 bg-blue-800 text-white">
+      <section className="py-10 bg-green-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-bold mb-4">هل أنت مستعد لبدء رحلة القيادة؟</h2>
           <p className="mb-6 max-w-2xl mx-auto">انضم إلى آلاف الطلاب الراضين الذين حصلوا بنجاح على رخصة القيادة معنا</p>
           <Button
             onClick={() => { handleRediract('courses') }}
-            className="bg-white text-blue-800 hover:bg-gray-100">
+            className="bg-white text-green-800 hover:bg-gray-100">
             سجل الآن <ArrowLeft className="mr-2 h-4 w-4" />
           </Button>
         </div>

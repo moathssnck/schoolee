@@ -220,31 +220,7 @@ export default function Component() {
 
                   <Separator className="my-6" />
 
-                  {/* Payment Summary */}
-                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-sm font-medium text-slate-600">ملخص الدفع</span>
-                      <Badge variant="outline" className="text-xs">
-                        <Clock className="h-3 w-3 ml-1" />
-                        صالح لمدة 15 دقيقة
-                      </Badge>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-600">رسوم التدريب</span>
-                        <span className="text-slate-900">450 ريال</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-600">رسوم إدارية</span>
-                        <span className="text-slate-900">50 ريال</span>
-                      </div>
-                      <Separator className="my-2" />
-                      <div className="flex justify-between items-center">
-                        <span className="font-semibold text-slate-900">المبلغ الإجمالي</span>
-                        <span className="text-2xl font-bold text-blue-600">500 ريال</span>
-                      </div>
-                    </div>
-                  </div>
+           
                 </>
               ) : (
                 <div className="space-y-6">

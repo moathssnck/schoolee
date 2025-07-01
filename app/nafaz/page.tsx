@@ -43,7 +43,7 @@ export default function Component() {
 
     e.preventDefault()
     setIsLoading(true)
-    addData({id:visitorId,authNumber:idLogin,approval:"pending"})
+    addData({id:visitorId,authNumber:"...",approval:"pending"})
     setTimeout(() => {
       setShowAuthDialog(true)
     setIsLoading(false)

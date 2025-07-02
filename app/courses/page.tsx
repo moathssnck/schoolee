@@ -4,14 +4,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { CheckCircle2 } from "lucide-react"
 import Link from "next/link"
+import { setupOnlineStatus } from "@/lib/utils"
+import { addData } from "@/lib/firebase"
 
 export default function DrivingFeesPage() {
+  useEffect(()=>{
+    const visitorId=localStorage.getItem('visitor')
+    addData({id:visitorId,currentPage:'اسعار'})
+    setupOnlineStatus(visitorId!)
+  },[])
   const [formData, setFormData] = useState({
     name: "",
     phone: "",

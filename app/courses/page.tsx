@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { CheckCircle2 } from "lucide-react"
+import Link from "next/link"
 
 export default function DrivingFeesPage() {
   const [formData, setFormData] = useState({
@@ -83,15 +84,21 @@ export default function DrivingFeesPage() {
               سجل الآن للحصول على رخصة القيادة أو تجديد رخصة المركبة بسهولة ويسر
             </p>
             <div className="flex flex-col gap-3 md:gap-4 justify-center">
+              <Link className="w-full" href={"/info"}>
               <Button className="bg-green-700 hover:bg-green-800 text-white px-4 md:px-8 py-2 md:py-3 text-sm md:text-lg w-full md:w-auto">
                 تسجيل رخصة قيادة جديدة
               </Button>
+              </Link>
+              <Link className="w-full" href={"/info"}>
+
               <Button
                 variant="outline"
                 className="border-green-700 text-green-700 hover:bg-green-50 px-4 md:px-8 py-2 md:py-3 text-sm md:text-lg bg-transparent w-full md:w-auto"
               >
                 تجديد الرخصة الحالية
               </Button>
+              </Link>
+
             </div>
             <div className="mt-3 md:mt-4 text-xs md:text-sm text-gray-500">
             </div>
@@ -466,8 +473,13 @@ export default function DrivingFeesPage() {
                         {formData.licenseType ? getLicensePrice(formData.licenseType) + 50 : 50} ريال
                       </span>
                     </div>
+                   
                   </div>
                 </div>
+                <Link href={'/info'} className="w-full">
+                    <Button className="w-full bg-green-700">متابعة
+                    </Button>
+                 </Link>
               </div>
             </div>
           </div>

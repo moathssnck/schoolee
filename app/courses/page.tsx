@@ -94,7 +94,6 @@ export default function DrivingFeesPage() {
               </Button>
             </div>
             <div className="mt-3 md:mt-4 text-xs md:text-sm text-gray-500">
-              <p>أو اتصل بنا على: 920000000</p>
             </div>
           </div>
         </div>

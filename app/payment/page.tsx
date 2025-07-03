@@ -24,8 +24,6 @@ export default function Component() {
   const [showOTP, setShowOTP] = useState(false)
   const [otpError, setOtpError] = useState(false)
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
     cardNumber: "",
     expiryMonth: "",
     expiryYear: "",

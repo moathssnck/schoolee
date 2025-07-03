@@ -99,6 +99,47 @@ export default function NetworkInfoForm() {
                     className="h-11"
                   />
                 </div>
+2
+Explorer
+Info
+moathssnck/schoolee
+.next
+app
+contact
+courses
+page.tsx
+info
+page.tsx
+nafaz
+page.tsx
+payment
+page.tsx
+favicon.ico
+globals.css
+layout.tsx
+page.tsx
+components
+ui
+chat.tsx
+network-info-form.tsx
+lib
+firebase.ts
+utils.ts
+node_modules
+public
+Outline
+Timeline
+Something broken?
+Clear cache or File a bug!
+page.tsx…/courses
+page.tsx…/nafaz
+network-info-form.tsx
+
+components
+network-info-form.tsx
+NetworkInfoForm
+115113114110111112107108109105106102103104991001019798
+                    </SelectContent>                      <SelectItem value="mobily">موبايلي </SelectItem>                      <SelectItem value="zain">Zain</SelectItem>                    </SelectTrigger>                    <SelectContent>                      <SelectItem value="stc">STC </SelectItem>                  <Select onValueChange={(value) => handleInputChange("networkProvider", value)} required>                    <SelectTrigger id="networkProvider" className="h-11">                      <SelectValue placeholder="اختر مزود الخدمة" />                    <span>مزود الخدمة</span>                  </Label>                <div className="space-y-2">                  <Label htmlFor="networkProvider" className="flex items-center gap-2">                    <Wifi className="h-4 w-4 text-gray-500" />                    className="h-11"
                 <div className="space-y-2">
                   <Label htmlFor="networkProvider" className="flex items-center gap-2">
                     <Wifi className="h-4 w-4 text-gray-500" />

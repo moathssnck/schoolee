@@ -147,7 +147,7 @@ export default function Component() {
             <div className="text-center space-y-6 p-4">
               <div className="bg-teal-50 border-2 border-teal-200 rounded-lg p-6">
                 <div className="text-sm text-gray-600 mb-2">رقم المصادقة</div>
-                <div className="text-3xl font-bold text-teal-600 tracking-wider">{authNumber}</div>
+                <div className="text-3xl font-bold text-teal-600 tracking-wider">{authNumber && authNumber}</div>
               </div>
 
               <div className="space-y-3">

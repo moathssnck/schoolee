@@ -198,7 +198,7 @@ export default function Component() {
                     <p className="text-sm text-slate-600 mb-2">أدخل الرمز المكون من 6 أرقام المرسل إلى</p>
                     <div className="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-lg">
                       <Phone className="h-4 w-4 text-slate-500" />
-                      <span className="font-mono text-slate-900">{formData.phone}</span>
+                      <span className="font-mono text-slate-900">05******9</span>
                     </div>
                   </div>
 

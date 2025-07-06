@@ -28,6 +28,7 @@
     "lucide-react": "^0.515.0",
     "next": "13.5.1",
     "postcss": "8.4.30",
+    "framer-motion":"latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^3.3.1",

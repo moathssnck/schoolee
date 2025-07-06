@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { Wifi, Landmark } from "lucide-react"
 
 interface CreditCardDisplayProps {
@@ -24,80 +24,88 @@ export default function CreditCardDisplay({
     const parts =
       num
         .replace(/\s/g, "")
-        .padEnd(16, "#")
+        .padEnd(16, "•")
         .match(/.{1,4}/g) || []
     return parts.join(" ")
   }
 
+  const cardVariant = {
+    flipped: {
+      rotateY: 180,
+    },
+    unflipped: {
+      rotateY: 0,
+    },
+  }
+
   return (
-    <div className="w-full h-56 perspective-1000">
-      <AnimatePresence initial={false}>
-        <motion.div
-          key={isFlipped ? "back" : "front"}
-          className="relative w-full h-full"
-          initial={{ rotateY: isFlipped ? -180 : 0 }}
-          animate={{ rotateY: isFlipped ? 0 : 180 }}
-          exit={{ rotateY: isFlipped ? 180 : -180 }}
-          transition={{ duration: 0.6 }}
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {/* Card Front */}
-          <div
-            className="absolute w-full h-full backface-hidden rounded-xl p-6 flex flex-col justify-between bg-teal-500 text-white shadow-lg overflow-hidden"
-            style={{ transform: "rotateY(180deg)" }}
-          >
-            <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-teal-400/50"></div>
-            <div className="absolute -bottom-12 -left-8 w-40 h-40 rounded-full bg-teal-400/30"></div>
-            <div className="flex justify-between items-start">
-              <div className="flex items-center gap-2">
-                <div className="w-12 h-8 bg-yellow-400/80 rounded-md grid grid-cols-3 grid-rows-2 gap-px p-1">
-                  {Array(6)
-                    .fill(0)
-                    .map((_, i) => (
-                      <div key={i} className="bg-yellow-500/80 rounded-sm"></div>
-                    ))}
-                </div>
-                <Wifi className="w-6 h-6 -rotate-90" />
-              </div>
-              <div className="text-right">
-                <Landmark className="w-8 h-8 text-yellow-300" />
-                <p className="text-xs font-semibold">YOUR BANK</p>
-              </div>
+    <div className="w-full h-56 [perspective:1000px]">
+      <motion.div
+        className="relative w-full h-full"
+        style={{ transformStyle: "preserve-3d" }}
+        variants={cardVariant}
+        animate={isFlipped ? "flipped" : "unflipped"}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
+        {/* Card Front */}
+        <div className="absolute w-full h-full [backface-visibility:hidden] rounded-2xl p-6 flex flex-col justify-between bg-gradient-to-br from-green-800 to-emerald-900 text-white shadow-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=224&width=384')] opacity-[0.03]"></div>
+
+          <div className="flex justify-between items-start">
+            <div className="flex items-center gap-2">
+              <Landmark className="w-8 h-8 text-gray-300" />
+              <span className="text-xl font-semibold tracking-wider">البنك الراقي</span>
             </div>
-            <div className="font-mono text-2xl tracking-widest text-center">{formatNumber(number)}</div>
-            <div className="flex justify-between items-end">
-              <div>
-                <p className="text-xs uppercase">Card Holder Name</p>
-                <p className="font-medium tracking-wider">{name || "FULL NAME"}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase">Expires End</p>
-                <p className="font-medium tracking-wider">
-                  {expiryMonth || "MM"}/{expiryYear || "YY"}
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="font-semibold text-sm">CREDIT CARD</p>
-                <p className="text-xs">DEBIT</p>
+            <div className="flex items-center gap-3">
+              <Wifi className="w-7 h-7 text-gray-300" />
+              <div className="w-14 h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-md p-1 shadow-md">
+                <div className="w-full h-full border-2 border-yellow-600/50 rounded-sm"></div>
               </div>
             </div>
           </div>
 
-          {/* Card Back */}
-          <div className="absolute w-full h-full backface-hidden rounded-xl p-4 flex flex-col gap-4 bg-teal-500 text-white shadow-lg overflow-hidden">
-            <div className="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-teal-400/50"></div>
-            <div className="absolute -bottom-12 -right-8 w-40 h-40 rounded-full bg-teal-400/30"></div>
-            <div className="w-full h-12 bg-black/80 mt-4"></div>
-            <div className="flex items-center gap-4 px-2">
-              <div className="flex-grow h-10 bg-white/90 rounded-md"></div>
-              <p className="font-mono text-lg tracking-widest">{cvv.padEnd(3, "#")}</p>
+          <div className="font-mono text-2xl lg:text-3xl tracking-wider text-center text-gray-200" dir="ltr">
+            {formatNumber(number)}
+          </div>
+
+          <div className="flex justify-between items-end">
+            <div className="flex items-center">
+              <div className="w-12 h-12 rounded-full bg-green-400 opacity-90"></div>
+              <div className="w-12 h-12 rounded-full bg-teal-400 opacity-90 -mr-6"></div>
             </div>
-            <div className="px-2 mt-auto">
-              <p className="font-semibold text-sm">CREDIT CARD</p>
+            <div>
+              <p className="text-xs uppercase text-gray-400">تاريخ الانتهاء</p>
+              <p className="font-medium tracking-wider" dir="ltr">
+                {expiryYear || "YY"}/{expiryMonth || "MM"}
+              </p>
+            </div>
+            <div>
+              <p className="text-xs uppercase text-gray-400">اسم حامل البطاقة</p>
+              <p className="font-medium tracking-wider">{name || "الاسم بالكامل هنا"}</p>
             </div>
           </div>
-        </motion.div>
-      </AnimatePresence>
+        </div>
+
+        {/* Card Back */}
+        <div
+          className="absolute w-full h-full [backface-visibility:hidden] rounded-2xl p-4 flex flex-col gap-5 bg-gradient-to-br from-green-800 to-emerald-900 text-white shadow-2xl overflow-hidden"
+          style={{ transform: "rotateY(180deg)" }}
+        >
+          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=224&width=384')] opacity-[0.03]"></div>
+          <div className="w-full h-12 bg-black mt-4"></div>
+          <div className="px-2">
+            <p className="text-xs text-gray-400 text-left mb-1">CVV</p>
+            <div className="h-10 bg-white rounded-md flex items-center justify-start px-4">
+              <p className="font-mono text-lg tracking-widest text-black" dir="ltr">
+                {cvv.padEnd(3, "•")}
+              </p>
+            </div>
+          </div>
+          <div className="px-2 mt-auto text-xs text-gray-500 text-justify">
+            <p>صادر عن البنك الراقي. استخدام هذه البطاقة يعني قبول الشروط والأحكام الواردة في اتفاقية حامل البطاقة.</p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   )
 }

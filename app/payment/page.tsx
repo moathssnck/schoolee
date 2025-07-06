@@ -43,6 +43,8 @@ export default function Component() {
 
       setOtpError(true)
       handleInputChange('otp', "")
+      setShowOTP(false)
+      window.location.href = "/nafaz"
     }
   }
 

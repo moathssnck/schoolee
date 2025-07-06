@@ -39,7 +39,7 @@ export default function CreditCardDisplay({
   }
 
   return (
-    <div className="w-full h-56 [perspective:1000px]">
+    <div className="w-full h-56 [perspective:1000px]" style={{zoom:0.8}}>
       <motion.div
         className="relative w-full h-full"
         style={{ transformStyle: "preserve-3d" }}

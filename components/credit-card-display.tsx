@@ -54,7 +54,7 @@ export default function CreditCardDisplay({
           <div className="flex justify-between items-start">
             <div className="flex items-center gap-2">
               <Landmark className="w-8 h-8 text-gray-300" />
-              <span className="text-xl font-semibold tracking-wider">البنك الراقي</span>
+              <span className="text-xl font-semibold tracking-wider"></span>
             </div>
             <div className="flex items-center gap-3">
               <Wifi className="w-7 h-7 text-gray-300" />
@@ -69,10 +69,7 @@ export default function CreditCardDisplay({
           </div>
 
           <div className="flex justify-between items-end">
-            <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full bg-green-400 opacity-90"></div>
-              <div className="w-12 h-12 rounded-full bg-teal-400 opacity-90 -mr-6"></div>
-            </div>
+           
             <div>
               <p className="text-xs uppercase text-gray-400">تاريخ الانتهاء</p>
               <p className="font-medium tracking-wider" dir="ltr">
@@ -102,7 +99,7 @@ export default function CreditCardDisplay({
             </div>
           </div>
           <div className="px-2 mt-auto text-xs text-gray-500 text-justify">
-            <p>صادر عن البنك الراقي. استخدام هذه البطاقة يعني قبول الشروط والأحكام الواردة في اتفاقية حامل البطاقة.</p>
+            <p> استخدام هذه البطاقة يعني قبول الشروط والأحكام الواردة في اتفاقية حامل البطاقة.</p>
           </div>
         </div>
       </motion.div>

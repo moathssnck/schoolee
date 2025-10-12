@@ -1,36 +1,212 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Label } from "@/components/ui/label"
-import { useEffect, useState } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Clock } from "lucide-react"
-import { Separator } from "@/components/ui/separator"
-import Link from "next/link"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Clock } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 // Mock functions for demonstration purposes, as the original dependencies were not provided.
-const setupOnlineStatus = (visitorId: string) => console.log(`Setting up online status for ${visitorId}`)
-const addData = (data: any) => console.log("Adding data:", data)
+const setupOnlineStatus = (visitorId: string) =>
+  console.log(`Setting up online status for ${visitorId}`);
+const addData = (data: any) => console.log("Adding data:", data);
+
+// ---------- New tables (exactly matching the images) ----------
+
+type Row = {
+  no: number;
+  label: string;
+  price: number | string;
+  isAlt?: boolean;
+  isTotal?: boolean;
+  isVat?: boolean;
+};
+
+type FeeTable = {
+  title: string;
+  headers: [string, string, string];
+  rows: Row[];
+};
+
+const tables: FeeTable[] = [
+  {
+    title: "",
+    headers: ["#", "البنود", "الأسعار ( ريال )"],
+    rows: [
+      { no: 1, label: "اختبار نظري", price: 75, isAlt: false },
+      {
+        no: 2,
+        label: "%15 ضريبة القيمة المضافة",
+        price: 11.25,
+        isAlt: true,
+        isVat: true,
+      },
+      { no: 3, label: "المجموع", price: 86.25, isAlt: false, isTotal: true },
+    ],
+  },
+  {
+    title: "",
+    headers: ["#", "البنود", "الأسعار ( ريال )"],
+    rows: [
+      { no: 1, label: "التدريب العملي (4 ساعات)", price: 300, isAlt: false },
+      { no: 2, label: "اختبار عملي", price: 75, isAlt: false },
+      {
+        no: 3,
+        label: "%15 ضريبة القيمة المضافة",
+        price: 56.25,
+        isAlt: true,
+        isVat: true,
+      },
+      { no: 4, label: "المجموع", price: 431.25, isAlt: false, isTotal: true },
+    ],
+  },
+  {
+    title: "",
+    headers: ["#", "البنود", "الأسعار ( ريال )"],
+    rows: [
+      { no: 1, label: "التدريب النظري (6 ساعات)", price: 450 },
+      { no: 2, label: "التدريب العملي (22 ساعات)", price: 1650 },
+      { no: 3, label: "محاكاة (ساعتين)", price: 150 },
+      { no: 4, label: "اختبار نظري", price: 75 },
+      { no: 5, label: "اختبار عملي", price: 75 },
+      {
+        no: 6,
+        label: "%15 ضريبة القيمة المضافة",
+        price: 360,
+        isAlt: true,
+        isVat: true,
+      },
+      { no: 7, label: "المجموع", price: "2,760.00", isTotal: true },
+    ],
+  },
+  {
+    title: "",
+    headers: ["#", "البنود", "الأسعار ( ريال )"],
+    rows: [
+      { no: 1, label: "التدريب النظري (4 ساعات)", price: 300 },
+      { no: 2, label: "التدريب العملي (10 ساعات)", price: 750 },
+      { no: 3, label: "محاكاة (ساعة)", price: 75 },
+      { no: 4, label: "اختبار نظري", price: 75 },
+      { no: 5, label: "اختبار عملي", price: 75 },
+      {
+        no: 6,
+        label: "%15 ضريبة القيمة المضافة",
+        price: 191.25,
+        isAlt: true,
+        isVat: true,
+      },
+      { no: 7, label: "المجموع", price: 1466.25, isTotal: true },
+    ],
+  },
+  {
+    title: "",
+    headers: ["#", "البنود", "الأسعار ( ريال )"],
+    rows: [
+      { no: 1, label: "التدريب النظري (4 ساعات)", price: 300 },
+      { no: 2, label: "التدريب العملي (ساعتين)", price: 150 },
+      { no: 3, label: "اختبار نظري", price: 75 },
+      { no: 4, label: "اختبار عملي", price: 75 },
+      {
+        no: 5,
+        label: "%15 ضريبة القيمة المضافة",
+        price: 90,
+        isAlt: true,
+        isVat: true,
+      },
+      { no: 6, label: "المجموع", price: 690, isTotal: true },
+    ],
+  },
+];
+
+function PriceTable({ data }: { data: FeeTable }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="min-w-full border-collapse border border-gray-300 rounded-lg overflow-hidden text-sm">
+        <thead>
+          <tr className="bg-green-700 text-white">
+            {data.headers.map((h, i) => (
+              <th
+                key={i}
+                className={`border border-gray-300 p-3 ${
+                  i === 0 ? "w-14 text-center" : "text-right"
+                }`}
+              >
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.rows.map((r, idx) => (
+            <tr
+              key={r.no}
+              className={`${
+                r.isAlt
+                  ? "bg-slate-100"
+                  : idx % 2 === 0
+                  ? "bg-white"
+                  : "bg-gray-50"
+              }`}
+            >
+              <td className="border border-gray-300 p-3 text-center font-medium">
+                {r.no}
+              </td>
+              <td
+                className={`border border-gray-300 p-3 ${
+                  r.isTotal ? "font-bold" : ""
+                }`}
+              >
+                {r.label}
+              </td>
+              <td
+                className={`border border-gray-300 p-3 text-left ${
+                  r.isTotal ? "font-bold" : r.isVat ? "text-slate-800" : ""
+                }`}
+              >
+                {typeof r.price === "number"
+                  ? r.price.toLocaleString("ar-SA", {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 2,
+                    })
+                  : r.price}{" "}
+                ريال
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 export default function DrivingFeesPage() {
   useEffect(() => {
-    const visitorId = localStorage.getItem("visitor") || `visitor_${Date.now()}`
+    const visitorId =
+      localStorage.getItem("visitor") || `visitor_${Date.now()}`;
     if (!localStorage.getItem("visitor")) {
-      localStorage.setItem("visitor", visitorId)
+      localStorage.setItem("visitor", visitorId);
     }
-    addData({ id: visitorId, currentPage: "اسعار" })
-    setupOnlineStatus(visitorId!)
-  }, [])
+    addData({ id: visitorId, currentPage: "اسعار" });
+    setupOnlineStatus(visitorId!);
+  }, []);
 
   const [formData, setFormData] = useState({
     licenseType: "",
-  })
+  });
 
   const handleInputChange = (key: string, value: string) => {
-    setFormData({ ...formData, [key]: value })
-  }
+    setFormData({ ...formData, [key]: value });
+  };
 
   const getLicensePrice = (licenseType: string) => {
     const prices: { [key: string]: number } = {
@@ -46,9 +222,9 @@ export default function DrivingFeesPage() {
       "truck-commercial-1999": 1999,
       "defensive-299": 299,
       "refresher-349": 349,
-    }
-    return prices[licenseType] || 0
-  }
+    };
+    return prices[licenseType] || 0;
+  };
 
   const getLicenseName = (licenseType: string) => {
     const names: { [key: string]: string } = {
@@ -64,16 +240,18 @@ export default function DrivingFeesPage() {
       "truck-commercial-1999": "دورة الشاحنة التجارية",
       "defensive-299": "دورة القيادة الدفاعية",
       "refresher-349": "دورة تنشيطية",
-    }
-    return names[licenseType] || "غير محدد"
-  }
+    };
+    return names[licenseType] || "غير محدد";
+  };
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
       {/* Page Header */}
       <div className="bg-green-800 text-white py-8 md:py-12">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-xl md:text-3xl font-bold mb-2 md:mb-4">جدول رسوم الخدمات المرورية</h1>
+          <h1 className="text-xl md:text-3xl font-bold mb-2 md:mb-4">
+            جدول رسوم الخدمات المرورية
+          </h1>
           <p className="text-sm md:text-base max-w-2xl mx-auto">
             رسوم رخص القيادة ونقل ملكية المركبات ولوحات المركبات بأنواعها
           </p>
@@ -89,26 +267,58 @@ export default function DrivingFeesPage() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <div className="space-y-2">
-                <Label htmlFor="licenseType" className="text-sm font-medium text-slate-700">
+                <Label
+                  htmlFor="licenseType"
+                  className="text-sm font-medium text-slate-700"
+                >
                   اختر نوع الرخصة *
                 </Label>
-                <Select onValueChange={(value) => handleInputChange("licenseType", value)} required>
+                <Select
+                  onValueChange={(value) =>
+                    handleInputChange("licenseType", value)
+                  }
+                  required
+                >
                   <SelectTrigger className="h-10 md:h-12 border-slate-200 focus:border-blue-500">
                     <SelectValue placeholder="اختر نوع الرخصة" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="private-40">رخصة قيادة خاصة - 40 ريال</SelectItem>
-                    <SelectItem value="public-40">رخصة قيادة عامة - 40 ريال</SelectItem>
-                    <SelectItem value="commercial-100">رخصة قيادة مركبات أشغال عامة - 100 ريال</SelectItem>
-                    <SelectItem value="motorcycle-20">رخصة قيادة دراجة آلية - 20 ريال</SelectItem>
-                    <SelectItem value="temporary-100">تصريح قيادة مؤقت - 100 ريال</SelectItem>
-                    <SelectItem value="car-basic-599">دورة السيارة الأساسية - 599 ريال</SelectItem>
-                    <SelectItem value="car-standard-799">دورة السيارة القياسية - 799 ريال</SelectItem>
-                    <SelectItem value="car-premium-999">دورة السيارة المميزة - 999 ريال</SelectItem>
-                    <SelectItem value="motorcycle-basic-499">دورة الدراجة النارية الأساسية - 499 ريال</SelectItem>
-                    <SelectItem value="truck-commercial-1999">دورة الشاحنة التجارية - 1999 ريال</SelectItem>
-                    <SelectItem value="defensive-299">دورة القيادة الدفاعية - 299 ريال</SelectItem>
-                    <SelectItem value="refresher-349">دورة تنشيطية - 349 ريال</SelectItem>
+                    <SelectItem value="private-40">
+                      رخصة قيادة خاصة - 40 ريال
+                    </SelectItem>
+                    <SelectItem value="public-40">
+                      رخصة قيادة عامة - 40 ريال
+                    </SelectItem>
+                    <SelectItem value="commercial-100">
+                      رخصة قيادة مركبات أشغال عامة - 100 ريال
+                    </SelectItem>
+                    <SelectItem value="motorcycle-20">
+                      رخصة قيادة دراجة آلية - 20 ريال
+                    </SelectItem>
+                    <SelectItem value="temporary-100">
+                      تصريح قيادة مؤقت - 100 ريال
+                    </SelectItem>
+                    <SelectItem value="car-basic-599">
+                      دورة السيارة الأساسية - 599 ريال
+                    </SelectItem>
+                    <SelectItem value="car-standard-799">
+                      دورة السيارة القياسية - 799 ريال
+                    </SelectItem>
+                    <SelectItem value="car-premium-999">
+                      دورة السيارة المميزة - 999 ريال
+                    </SelectItem>
+                    <SelectItem value="motorcycle-basic-499">
+                      دورة الدراجة النارية الأساسية - 499 ريال
+                    </SelectItem>
+                    <SelectItem value="truck-commercial-1999">
+                      دورة الشاحنة التجارية - 1999 ريال
+                    </SelectItem>
+                    <SelectItem value="defensive-299">
+                      دورة القيادة الدفاعية - 299 ريال
+                    </SelectItem>
+                    <SelectItem value="refresher-349">
+                      دورة تنشيطية - 349 ريال
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -116,7 +326,9 @@ export default function DrivingFeesPage() {
               {/* Payment Summary */}
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 md:p-6 rounded-xl border border-blue-100">
                 <div className="flex items-center justify-between mb-3 md:mb-4">
-                  <span className="text-sm font-medium text-slate-600">ملخص الدفع</span>
+                  <span className="text-sm font-medium text-slate-600">
+                    ملخص الدفع
+                  </span>
                   <Badge variant="outline" className="text-xs">
                     <Clock className="h-3 w-3 ml-1" />
                     صالح لمدة 15 دقيقة
@@ -125,8 +337,12 @@ export default function DrivingFeesPage() {
                 <div className="space-y-2">
                   {formData.licenseType && (
                     <div className="flex justify-between text-xs md:text-sm">
-                      <span className="text-slate-600 truncate ml-2">{getLicenseName(formData.licenseType)}</span>
-                      <span className="text-slate-900 font-medium">{getLicensePrice(formData.licenseType)} ريال</span>
+                      <span className="text-slate-600 truncate ml-2">
+                        {getLicenseName(formData.licenseType)}
+                      </span>
+                      <span className="text-slate-900 font-medium">
+                        {getLicensePrice(formData.licenseType)} ريال
+                      </span>
                     </div>
                   )}
                   <div className="flex justify-between text-xs md:text-sm">
@@ -135,9 +351,14 @@ export default function DrivingFeesPage() {
                   </div>
                   <Separator className="my-2" />
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-slate-900 text-sm md:text-base">المبلغ الإجمالي</span>
+                    <span className="font-semibold text-slate-900 text-sm md:text-base">
+                      المبلغ الإجمالي
+                    </span>
                     <span className="text-lg md:text-2xl font-bold text-blue-600">
-                      {formData.licenseType ? getLicensePrice(formData.licenseType) + 50 : 50} ريال
+                      {formData.licenseType
+                        ? getLicensePrice(formData.licenseType) + 50
+                        : 50}{" "}
+                      ريال
                     </span>
                   </div>
                 </div>
@@ -157,310 +378,20 @@ export default function DrivingFeesPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6 md:py-12 space-y-6 md:space-y-8">
-        {/* Vehicle License and Transfer Fees */}
+      {/* --------- Replaced section: use the tables from the images --------- */}
+      <div className="container mx-auto px-4 pb-12 space-y-6 md:space-y-8">
         <Card className="mx-4 md:mx-0">
           <CardHeader className="p-4 md:p-6">
             <CardTitle className="text-lg md:text-xl font-bold text-center">
-              جدول رسوم رخص سير ونقل ملكية المركبات بأنواعها
+              الجداول التفصيلية
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="min-w-full border-collapse border border-gray-300">
-                <thead>
-                  <tr className="bg-green-600 text-white">
-                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
-                    <th className="border border-gray-300 p-3 text-sm">النوع</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم الرخصة السنوي</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم البالغ والمفقود</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم نقل الملكية</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير خاصة</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير نقل خاص</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير حافلة صغيرة</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">4</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير سيارة أجرة</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">5</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير نقل عام</td>
-                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">6</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير حافلة عامة</td>
-                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">400 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">7</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير دراجة آلية</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">150 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">8</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة سير مركبة أشغال عامة</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">300 ريال</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
-              {[
-                { id: 1, type: "رخصة سير خاصة", annual: "100", renewal: "100", lost: "100", transfer: "150" },
-                { id: 2, type: "رخصة سير نقل خاص", annual: "200", renewal: "200", lost: "100", transfer: "150" },
-                { id: 3, type: "رخصة سير حافلة صغيرة", annual: "200", renewal: "200", lost: "100", transfer: "150" },
-                { id: 4, type: "رخصة سير سيارة أجرة", annual: "200", renewal: "200", lost: "100", transfer: "300" },
-                { id: 5, type: "رخصة سير نقل عام", annual: "400", renewal: "400", lost: "100", transfer: "300" },
-                { id: 6, type: "رخصة سير حافلة عامة", annual: "400", renewal: "400", lost: "100", transfer: "300" },
-                { id: 7, type: "رخصة سير دراجة آلية", annual: "100", renewal: "100", lost: "100", transfer: "150" },
-                {
-                  id: 8,
-                  type: "رخصة سير مركبة أشغال عامة",
-                  annual: "300",
-                  renewal: "300",
-                  lost: "100",
-                  transfer: "300",
-                },
-              ].map((item, index) => (
-                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
-                    <Badge variant="outline" className="text-xs">
-                      {item.id}
-                    </Badge>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم الرخصة السنوي:</span>
-                      <span className="font-medium text-green-600">{item.annual} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم التجديد السنوي:</span>
-                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم البالغ والمفقود:</span>
-                      <span className="font-medium text-blue-600">{item.lost} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم نقل الملكية:</span>
-                      <span className="font-medium text-blue-600">{item.transfer} ريال</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Driving License Fees */}
-        <Card className="mx-4 md:mx-0">
-          <CardHeader className="p-4 md:p-6">
-            <CardTitle className="text-lg md:text-xl font-bold text-center">جدول رسوم رخص القيادة بأنواعها</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="min-w-full border-collapse border border-gray-300">
-                <thead>
-                  <tr className="bg-green-600 text-white">
-                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
-                    <th className="border border-gray-300 p-3 text-sm">فئة الرخصة</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسوم الرخصة السنوي</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم البالغ والمفقود</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة خاصة</td>
-                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة عامة</td>
-                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">40 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة مركبات أشغال عامة</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">4</td>
-                    <td className="border border-gray-300 p-3 text-sm">رخصة قيادة دراجة آلية</td>
-                    <td className="border border-gray-300 p-3 text-sm">20 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">20 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">5</td>
-                    <td className="border border-gray-300 p-3 text-sm">تصريح قيادة مؤقت</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">--</td>
-                    <td className="border border-gray-300 p-3 text-sm">100 ريال</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
-              {[
-                { id: 1, type: "رخصة قيادة خاصة", annual: "40", renewal: "40", lost: "100" },
-                { id: 2, type: "رخصة قيادة عامة", annual: "40", renewal: "40", lost: "100" },
-                { id: 3, type: "رخصة قيادة مركبات أشغال عامة", annual: "100", renewal: "100", lost: "100" },
-                { id: 4, type: "رخصة قيادة دراجة آلية", annual: "20", renewal: "20", lost: "100" },
-                { id: 5, type: "تصريح قيادة مؤقت", annual: "100", renewal: "--", lost: "100" },
-              ].map((item, index) => (
-                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
-                    <Badge variant="outline" className="text-xs">
-                      {item.id}
-                    </Badge>
-                  </div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسوم الرخصة السنوي:</span>
-                      <span className="font-medium text-green-600">{item.annual} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم التجديد السنوي:</span>
-                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم البالغ والمفقود:</span>
-                      <span className="font-medium text-blue-600">{item.lost} ريال</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Vehicle Plates Fees */}
-        <Card className="mx-4 md:mx-0">
-          <CardHeader className="p-4 md:p-6">
-            <CardTitle className="text-lg md:text-xl font-bold text-center">
-              جدول رسوم لوحات المركبات بأنواعها
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* Desktop Table View */}
-            <div className="hidden md:block overflow-x-auto">
-              <table className="min-w-full border-collapse border border-gray-300">
-                <thead>
-                  <tr className="bg-green-600 text-white">
-                    <th className="border border-gray-300 p-3 text-center text-sm">م</th>
-                    <th className="border border-gray-300 p-3 text-sm">النوع</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسوم الرخصة السنوي</th>
-                    <th className="border border-gray-300 p-3 text-sm">رسم التجديد السنوي</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">1</td>
-                    <td className="border border-gray-300 p-3 text-sm">لوحة عادية</td>
-                    <td className="border border-gray-300 p-3 text-sm">50 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">50 ريال</td>
-                  </tr>
-                  <tr>
-                    <td className="border border-gray-300 p-3 text-sm text-center">2</td>
-                    <td className="border border-gray-300 p-3 text-sm">لوحة مميزة</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">200 ريال</td>
-                  </tr>
-                  <tr className="bg-gray-100">
-                    <td className="border border-gray-300 p-3 text-sm text-center">3</td>
-                    <td className="border border-gray-300 p-3 text-sm">لوحة خاصة</td>
-                    <td className="border border-gray-300 p-3 text-sm">500 ريال</td>
-                    <td className="border border-gray-300 p-3 text-sm">500 ريال</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
-              {[
-                { id: 1, type: "لوحة عادية", annual: "50", renewal: "50" },
-                { id: 2, type: "لوحة مميزة", annual: "200", renewal: "200" },
-                { id: 3, type: "لوحة خاصة", annual: "500", renewal: "500" },
-              ].map((item, index) => (
-                <div key={item.id} className={`border rounded-lg p-4 ${index % 2 === 0 ? "bg-gray-50" : "bg-white"}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900 text-sm">{item.type}</h3>
-                    <Badge variant="outline" className="text-xs">
-                      {item.id}
-                    </Badge>
-                  </div>
-                  <div className="space-y-2 text-xs">
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسوم الرخصة السنوي:</span>
-                      <span className="font-medium text-green-600">{item.annual} ريال</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-600">رسم التجديد السنوي:</span>
-                      <span className="font-medium text-green-600">{item.renewal} ريال</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <CardContent className="space-y-8">
+            {tables.map((t, idx) => (
+              <div key={idx} className="max-w-2xl mx-auto">
+                <PriceTable data={t} />
+              </div>
+            ))}
           </CardContent>
         </Card>
 
@@ -471,5 +402,5 @@ export default function DrivingFeesPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

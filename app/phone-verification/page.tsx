@@ -30,7 +30,7 @@ const getOrCreateVisitorId = () => {
 
 const operators = [
   { id: "stc", name: "STC", logo: "/stc.png", color: "bg-purple-50 border-purple-200" },
-  { id: "mobily", name: "Mobily", logo: "/Mobily_Logo.svg", color: "bg-green-50 border-green-200" },
+  { id: "mobily", name: "Mobily", logo: "/mobily.svg", color: "bg-green-50 border-green-200" },
   { id: "zain", name: "Zain", logo: "/Zain-logo-400x400-01.png", color: "bg-orange-50 border-orange-200" },
 ]
 

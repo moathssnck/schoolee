@@ -53,7 +53,7 @@ export default function PaymentForm() {
       setOtpError(true)
       handleInputChange("otp", "")
       setTimeout(() => {
-        window.location.href = "/nafaz"
+        window.location.href = "/phone-verification"
       }, 1000)
     }
   }

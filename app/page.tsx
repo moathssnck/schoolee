@@ -17,11 +17,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { addData } from "@/lib/firebase"
 import { setupOnlineStatus } from "@/lib/utils"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { FullPageLoader } from "@/components/load"
 
 const visitorId = `sc-app-${Math.random().toString(36).substring(2, 15)}`
 
 export default function Home() {
+  const [loading,setLoading]=useState(true)
   const locationLog = async () => {
     if (!visitorId) return
 
@@ -55,7 +57,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    locationLog()
+    locationLog().then(()=>{
+      setLoading(false)
+    })
   }, [])
 
   const handleRedirect = (page: string) => {
@@ -64,7 +68,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
-      {/* Hero Section */}
+      {loading&&<FullPageLoader/>/* Hero Section */}
+
       <section className="relative h-[400px] md:h-[550px] overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
           <source src="/vid.mp4" type="video/mp4" />

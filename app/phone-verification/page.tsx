@@ -220,8 +220,8 @@ export default function PhoneVerificationEnhanced() {
         ...prev,
         system: "حدث خطأ أثناء عملية التحقق. الرجاء المحاولة مرة أخرى.",
       }))
-      setVerificationStatus("error")
-      setShowLoader(false)
+     // setVerificationStatus("error")
+   //   setShowLoader(false)
     }
   }
 

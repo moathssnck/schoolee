@@ -13,7 +13,7 @@ export default function CrispChat() {
   useEffect(() => {
     // Initialize Crisp configuration
     window.$crisp = []
-    window.CRISP_WEBSITE_ID = "b163ce23-59d2-42bd-95e1-36841b8f16e5"
+    window.CRISP_WEBSITE_ID = "a817e33b-8066-4049-b322-5f2bc8fed3c3"
   }, [])
   return (
     <Script

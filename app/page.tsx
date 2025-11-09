@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import {
   ArrowLeft,
   Award,
@@ -125,8 +124,8 @@ export default function Home() {
       <section className="bg-white py-10 text-center animate-fadeInUp">
         <div className="inline-block bg-green-100 rounded-full p-6 mb-4 shadow-inner">
           <div className="bg-white rounded-full p-4 shadow-md">
-            <Image src="/site-logo.png" alt="شعار المدرسة" width={80} height={80} />
-          </div>
+            <img src="/site-logo.png" alt="شعار المدرسة" width={80} height={80} />
+          </div>  
         </div>
         <h2 className="text-2xl font-bold text-green-800">مدرسة التميز لتعليم القيادة</h2>
       </section>

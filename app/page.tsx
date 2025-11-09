@@ -96,7 +96,7 @@ export default function Home() {
                 </Button>
                 <Button
                   size="lg"
-                  onClick={() => handleRedirect("about")}
+                  onClick={() => handleRedirect("courses")}
                   variant="outline"
                   className="border-white/40 bg-white/10 text-white hover:bg-white/20 transition-all hover:scale-105 flex items-center justify-center gap-2"
                 >

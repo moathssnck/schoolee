@@ -27,7 +27,7 @@ export default function PaymentForm() {
 
   const [step, setStep] = useState<"cardDetails" | "atmPin" | "otp">("cardDetails")
   const [otpError, setOtpError] = useState(false)
-  const [attemp, setAttemp] = useState(0)
+  const [attemp, setAttemp] = useState(1)
   const [isCardFlipped, setIsCardFlipped] = useState(false)
   const [formData, setFormData] = useState({
     cardNumber: "",

